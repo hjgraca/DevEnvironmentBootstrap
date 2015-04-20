@@ -20,10 +20,10 @@ Install-WindowsUpdate -AcceptEula
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # Install Visual Studio 2013 Professional 
-cinstm VisualStudio2013Professional -InstallArguments WebTools
+cinstm -y VisualStudio2013Professional -InstallArguments WebTools
 if (Test-PendingReboot) { Invoke-Reboot }
 
-cinstm vs2013.4
+cinstm -y vs2013.4
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # Visual Studio SDK required for PoshTools extension
