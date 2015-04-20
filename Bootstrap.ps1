@@ -27,10 +27,10 @@ cinstm -y vs2013.4
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # Visual Studio SDK required for PoshTools extension
-cinstm VS2013SDK
+cinstm -y VS2013SDK
 if (Test-PendingReboot) { Invoke-Reboot }
 
-cinstm DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
+cinstm -y DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # VS extensions
@@ -43,41 +43,41 @@ Install-ChocolateyVsixPackage T4Toolbox http://visualstudiogallery.msdn.microsof
 # Install-ChocolateyVsixPackage AwsToolkit http://visualstudiogallery.msdn.microsoft.com/175787af-a563-4306-957b-686b4ee9b497
 
 #Other dev tools
-cinstm git
-cinstm fiddler4
-cinstm beyondcompare
-cinstm windbg
-cinstm tortoisegit
-cinstm nodejs.install
-cinst ruby1.9
+cinstm -y git
+cinstm -y fiddler4
+cinstm -y beyondcompare
+cinstm -y windbg
+cinstm -y tortoisegit
+cinstm -y nodejs.install
+cinstm -y ruby1.9
 
 #Browsers
-cinstm googlechrome
-cinstm firefox
+cinstm -y googlechrome
+cinstm -y firefox
 
 #Other essential tools
-cinstm 7zip
-cinstm adobereader
-cinstm javaruntime
-cinstm notepadplusplus
-cinstm sublimetext3
-cinstm hipchat
-cinstm isapirewrite
-cinstm webpi
-cinstm resharper
+cinstm -y 7zip
+cinstm -y adobereader
+cinstm -y javaruntime
+cinstm -y notepadplusplus
+cinstm -y sublimetext3
+cinstm -y hipchat
+cinstm -y isapirewrite
+cinstm -y webpi
+cinstm -y resharper
 
 #cinst Microsoft-Hyper-V-All -source windowsFeatures
-cinst IIS-WebServerRole -source windowsfeatures
-cinst IIS-HttpCompressionDynamic -source windowsfeatures
-cinst IIS-ManagementScriptingTools -source windowsfeatures
-cinst IIS-WindowsAuthentication -source windowsfeatures
-cinst IIS-ISAPIFilter -source WindowsFeatures
-cinst IIS-ISAPIExtensions -source WindowsFeatures
+cinstm -y IIS-WebServerRole -source windowsfeatures
+cinstm -y IIS-HttpCompressionDynamic -source windowsfeatures
+cinstm -y IIS-ManagementScriptingTools -source windowsfeatures
+cinstm -y IIS-WindowsAuthentication -source windowsfeatures
+cinstm -y IIS-ISAPIFilter -source WindowsFeatures
+cinstm -y IIS-ISAPIExtensions -source WindowsFeatures
 
 #Enable ASP.NET on win 2012/8
-cinst IIS-NetFxExtensibility45 -source WindowsFeatures
-cinst NetFx4Extended-ASPNET45 -source WindowsFeatures
-cinst IIS-ASPNet45 -source WindowsFeatures
+cinstm -y IIS-NetFxExtensibility45 -source WindowsFeatures
+cinstm -y NetFx4Extended-ASPNET45 -source WindowsFeatures
+cinstm -y IIS-ASPNet45 -source WindowsFeatures
 
 #rsa keys permissions
 $sharepath = "C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys"
@@ -87,10 +87,10 @@ $Acl.AddAccessRule($AccessRule)
 Set-Acl $SharePath $Acl
 
 #clone repos
-$Username = Read-Host "Please enter your git username"
-$Password = Read-Host "Please enter your git password"
-git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
-git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
+#$Username = Read-Host "Please enter your git username"
+#$Password = Read-Host "Please enter your git password"
+#git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
+#git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
 
 #clean and create application
 #Remove-Item c:\web\NugetServer -Recurse -Force -ErrorAction SilentlyContinue
@@ -101,7 +101,6 @@ Remove-WebSite -Name publicweb -ErrorAction SilentlyContinue
 Remove-WebSite -Name consumerweb -ErrorAction SilentlyContinue
 New-WebSite -ID 1 -Name publicweb -Port 80 -PhysicalPath c:\_Source\PublicWeb -Force
 New-WebSite -ID 1 -Name consumerweb -Port 8081 -PhysicalPath c:\_Source\ConsumerWeb -Force
-
 
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Google\Chrome\Application\chrome.exe"
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
