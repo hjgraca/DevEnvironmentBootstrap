@@ -20,17 +20,17 @@ Install-WindowsUpdate -AcceptEula
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # Install Visual Studio 2013 Professional 
-cinstm -y VisualStudio2013Professional -InstallArguments WebTools
+cinst -y VisualStudio2013Professional -InstallArguments WebTools
 if (Test-PendingReboot) { Invoke-Reboot }
 
-cinstm -y vs2013.4
+cinst -y vs2013.4
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # Visual Studio SDK required for PoshTools extension
-cinstm -y VS2013SDK
+cinst -y VS2013SDK
 if (Test-PendingReboot) { Invoke-Reboot }
 
-cinstm -y DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
+cinst -y DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # VS extensions
@@ -43,41 +43,41 @@ Install-ChocolateyVsixPackage T4Toolbox http://visualstudiogallery.msdn.microsof
 # Install-ChocolateyVsixPackage AwsToolkit http://visualstudiogallery.msdn.microsoft.com/175787af-a563-4306-957b-686b4ee9b497
 
 #Other dev tools
-cinstm -y git
-cinstm -y fiddler4
-cinstm -y beyondcompare
-cinstm -y windbg
-cinstm -y tortoisegit
-cinstm -y nodejs.install
-cinstm -y ruby1.9
+cinst -y git
+cinst -y fiddler4
+cinst -y beyondcompare
+cinst -y windbg
+cinst -y tortoisegit
+cinst -y nodejs.install
+cinst -y ruby1.9
 
 #Browsers
-cinstm -y googlechrome
-cinstm -y firefox
+cinst -y googlechrome
+cinst -y firefox
 
 #Other essential tools
-cinstm -y 7zip
-cinstm -y adobereader
-cinstm -y javaruntime
-cinstm -y notepadplusplus
-cinstm -y sublimetext3
-cinstm -y hipchat
-cinstm -y isapirewrite
-cinstm -y webpi
-cinstm -y resharper
+cinst -y 7zip
+cinst -y adobereader
+cinst -y javaruntime
+cinst -y notepadplusplus
+cinst -y sublimetext3
+cinst -y hipchat
+cinst -y isapirewrite
+cinst -y webpi
+cinst -y resharper
 
 #cinst Microsoft-Hyper-V-All -source windowsFeatures
-cinstm -y IIS-WebServerRole -source windowsfeatures
-cinstm -y IIS-HttpCompressionDynamic -source windowsfeatures
-cinstm -y IIS-ManagementScriptingTools -source windowsfeatures
-cinstm -y IIS-WindowsAuthentication -source windowsfeatures
-cinstm -y IIS-ISAPIFilter -source WindowsFeatures
-cinstm -y IIS-ISAPIExtensions -source WindowsFeatures
+cinst -y IIS-WebServerRole -source windowsfeatures
+cinst -y IIS-HttpCompressionDynamic -source windowsfeatures
+cinst -y IIS-ManagementScriptingTools -source windowsfeatures
+cinst -y IIS-WindowsAuthentication -source windowsfeatures
+cinst -y IIS-ISAPIFilter -source WindowsFeatures
+cinst -y IIS-ISAPIExtensions -source WindowsFeatures
 
 #Enable ASP.NET on win 2012/8
-cinstm -y IIS-NetFxExtensibility45 -source WindowsFeatures
-cinstm -y NetFx4Extended-ASPNET45 -source WindowsFeatures
-cinstm -y IIS-ASPNet45 -source WindowsFeatures
+cinst -y IIS-NetFxExtensibility45 -source WindowsFeatures
+cinst -y NetFx4Extended-ASPNET45 -source WindowsFeatures
+cinst -y IIS-ASPNet45 -source WindowsFeatures
 
 #rsa keys permissions
 $sharepath = "C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys"
