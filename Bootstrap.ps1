@@ -16,8 +16,8 @@ Set-TaskbarSmall
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # Update Windows and reboot if necessary
-Install-WindowsUpdate -AcceptEula
-if (Test-PendingReboot) { Invoke-Reboot }
+#Install-WindowsUpdate -AcceptEula
+#if (Test-PendingReboot) { Invoke-Reboot }
 
 # Install Visual Studio 2013 Professional 
 cinst -y VisualStudio2013Professional -InstallArguments WebTools
