@@ -30,8 +30,8 @@ if (Test-PendingReboot) { Invoke-Reboot }
 #cinst -y VS2013SDK
 #if (Test-PendingReboot) { Invoke-Reboot }
 
-cinst -y DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
-if (Test-PendingReboot) { Invoke-Reboot }
+#cinst -y DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
+#if (Test-PendingReboot) { Invoke-Reboot }
 
 # VS extensions
 Install-ChocolateyVsixPackage PowerShellTools http://visualstudiogallery.msdn.microsoft.com/c9eb3ba8-0c59-4944-9a62-6eee37294597/file/112013/6/PowerShellTools.vsix
