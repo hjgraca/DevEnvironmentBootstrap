@@ -88,10 +88,10 @@ $Acl.AddAccessRule($AccessRule)
 Set-Acl $SharePath $Acl
 
 #clone repos
-$Username = Read-Host "Please enter your git username"
-$Password = Read-Host "Please enter your git password"
-git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
-git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
+#$Username = Read-Host "Please enter your git username"
+#$Password = Read-Host "Please enter your git password"
+#git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
+#git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
 
 #clean and create application
 #Remove-Item c:\web\NugetServer -Recurse -Force -ErrorAction SilentlyContinue
@@ -100,8 +100,10 @@ git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git
 Import-Module WebAdministration
 Remove-WebSite -Name publicweb -ErrorAction SilentlyContinue
 Remove-WebSite -Name consumerweb -ErrorAction SilentlyContinue
-New-WebSite -Name publicweb -Port 80 -PhysicalPath c:\_Source\PublicWeb -Force
-New-WebSite -Name consumerweb -Port 8081 -PhysicalPath c:\_Source\ConsumerWeb -Force
+New-WebSite -Name publicweb -Port 80 -PhysicalPath c:\_Source\PublicWeb\src\JustEat.FrontEnd.Site -Force
+New-WebBinding -Name publicweb -IP "*" -Port 443 -Protocol https
+New-WebSite -Name consumerweb -Port 8081 -PhysicalPath c:\_Source\ConsumerWeb\src\ConsumerWeb -Force
+New-WebBinding -Name consumerweb -IP "*" -Port 444 -Protocol https
 
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Google\Chrome\Application\chrome.exe"
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
