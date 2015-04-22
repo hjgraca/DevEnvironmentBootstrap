@@ -45,12 +45,10 @@ Install-ChocolateyVsixPackage WebEssentials2013 http://visualstudiogallery.msdn.
 #Other dev tools
 cinst -y git.install -params /GitOnlyOnPath
 cinst -y fiddler4
-#cinst -y beyondcompare
-#cinst -y windbg
 cinst -y tortoisegit
 cinst -y nodejs.install
-cinst ruby -version 1.9.3.54500
-cinst ruby.devkit.ruby193
+cinst -y ruby -version 1.9.3.54500
+cinst -y ruby.devkit.ruby193
 gem install bundler
 
 #Browsers
@@ -69,9 +67,9 @@ cinst -y webpi
 cinst -y resharper
 cinst -y poshgit
 cinst -y git-credential-winstore
-cinst Console2
-cinst sysinternals
-cinst UrlRewrite
+cinst -y Console2
+cinst -y sysinternals
+cinst -y UrlRewrite
 
 #cinst Microsoft-Hyper-V-All -source windowsFeatures
 cinst -y IIS-WebServerRole -source windowsfeatures
