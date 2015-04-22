@@ -69,7 +69,6 @@ cinst -y poshgit
 cinst -y git-credential-winstore
 cinst -y Console2
 cinst -y sysinternals
-cinst -y UrlRewrite
 
 #cinst Microsoft-Hyper-V-All -source windowsFeatures
 cinst -y IIS-WebServerRole -source windowsfeatures
@@ -91,6 +90,13 @@ $AccessRule= New-Object System.Security.AccessControl.FileSystemAccessRule("ever
 $Acl.AddAccessRule($AccessRule)
 Set-Acl $SharePath $Acl
 
+#setup git
+git config --global http.sslcainfo "c:\Program Files (x86)\Git\ssl\certs\justeat-authority.crt"
+git config --global credential.helper store
+git config --global core.autocrlf true
+git config --global core.safecrlf true
+git config --global branch.autosetuprebase always
+
 #clone repos
 $Username = Read-Host "Please enter your git username"
 $Password = Read-Host "Please enter your git password"
@@ -111,3 +117,5 @@ New-WebBinding -Name consumerweb -IP "*" -Port 444 -Protocol https
 
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Google\Chrome\Application\chrome.exe"
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
+
+
