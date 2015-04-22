@@ -98,22 +98,39 @@ git config --global core.safecrlf true
 git config --global branch.autosetuprebase always
 
 #clone repos
-$Username = Read-Host "Please enter your git username"
-$Password = Read-Host "Please enter your git password"
-git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
-git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
+if ( -not (Test-Path 'c:\_Source\PublicWeb' -PathType Any) ){
+	$Username = Read-Host "Please enter your git username"
+	$Password = Read-Host "Please enter your git password"
+	git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
+	git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
+}
 
 #clean and create application
 #Remove-Item c:\web\NugetServer -Recurse -Force -ErrorAction SilentlyContinue
 #Mkdir c:\web\NugetServer -ErrorAction SilentlyContinue
 #Copy-Item "$(Join-Path (Get-PackageRoot $MyInvocation ) NugetServer)\*" c:\web\NugetServer -Recurse -Force
 Import-Module WebAdministration
+Remove-WebSite -Name "Default Web Site" -ErrorAction SilentlyContinue
 Remove-WebSite -Name publicweb -ErrorAction SilentlyContinue
 Remove-WebSite -Name consumerweb -ErrorAction SilentlyContinue
 New-WebSite -Name publicweb -Port 80 -PhysicalPath c:\_Source\PublicWeb\src\JustEat.FrontEnd.Site -Force
 New-WebBinding -Name publicweb -IP "*" -Port 443 -Protocol https
 New-WebSite -Name consumerweb -Port 8081 -PhysicalPath c:\_Source\ConsumerWeb\src\ConsumerWeb -Force
 New-WebBinding -Name consumerweb -IP "*" -Port 444 -Protocol https
+
+#Build tasks
+cd C:\_Source\github.je-labs.com\PublicWeb\deploy\
+bundle install
+cd C:\_Source\github.je-labs.com\PublicWeb\build\
+bundle exec rake dev[uk,qa1]
+
+cd C:\_Source\github.je-labs.com\PublicWeb\
+nuget.exe restore
+cd C:\_Source\github.je-labs.com\ConsumerWeb\
+nuget.exe restore
+
+Start-Process -FilePath "C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe" -ArgumentList "C:\_Source\PublicWeb\JustEat.sln /t:Clean;Rebuild" | Write-Host
+Start-Process -FilePath "C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe" -ArgumentList "C:\_Source\ConsumerWeb\ConsumerWeb.sln /t:Clean;Rebuild" | Write-Host
 
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Google\Chrome\Application\chrome.exe"
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
