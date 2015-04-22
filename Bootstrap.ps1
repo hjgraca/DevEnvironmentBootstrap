@@ -69,6 +69,7 @@ cinst -y poshgit
 cinst -y git-credential-winstore
 cinst -y Console2
 cinst -y sysinternals
+cinst -y nuget.commandline
 
 #cinst Microsoft-Hyper-V-All -source windowsFeatures
 cinst -y IIS-WebServerRole -source windowsfeatures
@@ -125,9 +126,9 @@ cd C:\_Source\PublicWeb\build\
 bundle exec rake dev[uk,qa1]
 
 cd C:\_Source\PublicWeb\
-nuget.exe restore
+nuget restore
 cd C:\_Source\ConsumerWeb\
-nuget.exe restore
+nuget restore
 
 Start-Process -FilePath "C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe" -ArgumentList "C:\_Source\PublicWeb\JustEat.sln /t:Clean;Rebuild" | Write-Host
 Start-Process -FilePath "C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe" -ArgumentList "C:\_Source\ConsumerWeb\ConsumerWeb.sln /t:Clean;Rebuild" | Write-Host
