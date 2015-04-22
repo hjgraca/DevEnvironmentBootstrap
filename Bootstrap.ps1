@@ -119,14 +119,14 @@ New-WebSite -Name consumerweb -Port 8081 -PhysicalPath c:\_Source\ConsumerWeb\sr
 New-WebBinding -Name consumerweb -IP "*" -Port 444 -Protocol https
 
 #Build tasks
-cd C:\_Source\github.je-labs.com\PublicWeb\deploy\
+cd C:\_Source\PublicWeb\deploy\
 bundle install
-cd C:\_Source\github.je-labs.com\PublicWeb\build\
+cd C:\_Source\PublicWeb\build\
 bundle exec rake dev[uk,qa1]
 
-cd C:\_Source\github.je-labs.com\PublicWeb\
+cd C:\_Source\PublicWeb\
 nuget.exe restore
-cd C:\_Source\github.je-labs.com\ConsumerWeb\
+cd C:\_Source\ConsumerWeb\
 nuget.exe restore
 
 Start-Process -FilePath "C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe" -ArgumentList "C:\_Source\PublicWeb\JustEat.sln /t:Clean;Rebuild" | Write-Host
