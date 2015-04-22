@@ -27,8 +27,8 @@ cinst -y vs2013.4
 if (Test-PendingReboot) { Invoke-Reboot }
 
 # Visual Studio SDK required for PoshTools extension
-cinst -y VS2013SDK
-if (Test-PendingReboot) { Invoke-Reboot }
+#cinst -y VS2013SDK
+#if (Test-PendingReboot) { Invoke-Reboot }
 
 cinst -y DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
 if (Test-PendingReboot) { Invoke-Reboot }
