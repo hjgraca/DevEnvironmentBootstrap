@@ -36,7 +36,7 @@ if (Test-PendingReboot) { Invoke-Reboot }
 # VS extensions
 Install-ChocolateyVsixPackage PowerShellTools http://visualstudiogallery.msdn.microsoft.com/c9eb3ba8-0c59-4944-9a62-6eee37294597/file/112013/6/PowerShellTools.vsix
 Install-ChocolateyVsixPackage WebEssentials2013 http://visualstudiogallery.msdn.microsoft.com/56633663-6799-41d7-9df7-0f2a504ca361/file/105627/31/WebEssentials2013.vsix
-Install-ChocolateyVsixPackage T4Toolbox http://visualstudiogallery.msdn.microsoft.com/791817a4-eb9a-4000-9c85-972cc60fd5aa/file/116854/1/T4Toolbox.12.vsix
+#Install-ChocolateyVsixPackage T4Toolbox http://visualstudiogallery.msdn.microsoft.com/791817a4-eb9a-4000-9c85-972cc60fd5aa/file/116854/1/T4Toolbox.12.vsix
 #Install-ChocolateyVsixPackage StopOnFirstBuildError http://visualstudiogallery.msdn.microsoft.com/91aaa139-5d3c-43a7-b39f-369196a84fa5/file/44205/3/StopOnFirstBuildError.vsix
 
 # AWS Toolkit is now an MSI available here http://sdk-for-net.amazonwebservices.com/latest/AWSToolsAndSDKForNet.msi (no chocolatey package as of FEB 2014)
@@ -45,8 +45,8 @@ Install-ChocolateyVsixPackage T4Toolbox http://visualstudiogallery.msdn.microsof
 #Other dev tools
 cinst -y git
 cinst -y fiddler4
-cinst -y beyondcompare
-cinst -y windbg
+#cinst -y beyondcompare
+#cinst -y windbg
 cinst -y tortoisegit
 cinst -y nodejs.install
 cinst -y ruby1.9
@@ -87,10 +87,10 @@ $Acl.AddAccessRule($AccessRule)
 Set-Acl $SharePath $Acl
 
 #clone repos
-#$Username = Read-Host "Please enter your git username"
-#$Password = Read-Host "Please enter your git password"
-#git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
-#git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
+$Username = Read-Host "Please enter your git username"
+$Password = Read-Host "Please enter your git password"
+git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
+git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
 
 #clean and create application
 #Remove-Item c:\web\NugetServer -Recurse -Force -ErrorAction SilentlyContinue
@@ -99,8 +99,8 @@ Set-Acl $SharePath $Acl
 Import-Module WebAdministration
 Remove-WebSite -Name publicweb -ErrorAction SilentlyContinue
 Remove-WebSite -Name consumerweb -ErrorAction SilentlyContinue
-New-WebSite -ID 1 -Name publicweb -Port 80 -PhysicalPath c:\_Source\PublicWeb -Force
-New-WebSite -ID 1 -Name consumerweb -Port 8081 -PhysicalPath c:\_Source\ConsumerWeb -Force
+New-WebSite -Name publicweb -Port 80 -PhysicalPath c:\_Source\PublicWeb -Force
+New-WebSite -Name consumerweb -Port 8081 -PhysicalPath c:\_Source\ConsumerWeb -Force
 
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Google\Chrome\Application\chrome.exe"
 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
