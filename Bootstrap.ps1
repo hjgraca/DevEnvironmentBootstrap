@@ -94,10 +94,10 @@ $Acl.AddAccessRule($AccessRule)
 Set-Acl $SharePath $Acl
 
 #clone repos
-#$Username = Read-Host "Please enter your git username"
-#$Password = Read-Host "Please enter your git password"
-#git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
-#git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
+$Username = Read-Host "Please enter your git username"
+$Password = Read-Host "Please enter your git password"
+git clone https://${Username}:${Password}@github.je-labs.com/CWA/app_publicweb.git c:\_Source\PublicWeb
+git clone https://${Username}:${Password}@github.je-labs.com/CWA/ConsumerWeb.git c:\_Source\ConsumerWeb
 
 #clean and create application
 #Remove-Item c:\web\NugetServer -Recurse -Force -ErrorAction SilentlyContinue
